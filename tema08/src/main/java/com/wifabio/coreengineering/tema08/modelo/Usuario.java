@@ -17,7 +17,7 @@ public class Usuario {
 		return idUser;
 	}
 
-	int setIdUser(int idUser) {
+	public int setIdUser(int idUser) {
 		return this.idUser = idUser;
 	}
 

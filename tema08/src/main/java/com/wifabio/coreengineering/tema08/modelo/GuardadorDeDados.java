@@ -16,7 +16,9 @@ public class GuardadorDeDados {
 
 	public void salvaLivros(List<Livro> biblioteca, Livro livro) throws ErroEscritaException, IOException {
 		String jsonUser = new Gson().toJson(biblioteca);
+		int contLivro = 0;
 		for (int i = 0; i <= biblioteca.size(); i++) {
+			livro.setId(contLivro++);
 			FileWriter fileLivro = new FileWriter(estanteLivros);
 			try {
 				fileLivro.write(jsonUser);
@@ -28,9 +30,11 @@ public class GuardadorDeDados {
 		}
 	}
 
-	public void salvaUsuarios(List<Usuario> cadastro, Usuario usuario, int idUser) throws IOException {
+	public void salvaUsuarios(List<Usuario> cadastro, Usuario usuario) throws IOException {
+		int contUser = 0;
 		String jsonUser = new Gson().toJson(cadastro);
 		for (int i = 0; i <= cadastro.size(); i++) {
+			usuario.setIdUser(contUser++);
 			FileWriter fileUser = new FileWriter(sistemaCadastro);
 			try {
 				fileUser.write(jsonUser);

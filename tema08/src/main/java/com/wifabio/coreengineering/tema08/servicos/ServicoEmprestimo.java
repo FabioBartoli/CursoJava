@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.wifabio.coreengineering.tema08.exceptions.EmprestimoInvalidoException;
+import com.wifabio.coreengineering.tema08.exceptions.UsuarioJaCadastradoException;
+import com.wifabio.coreengineering.tema08.exceptions.UsuarioOuLviroInvalidoException;
 import com.wifabio.coreengineering.tema08.modelo.Biblioteca;
 import com.wifabio.coreengineering.tema08.modelo.Emprestimo;
 import com.wifabio.coreengineering.tema08.modelo.GuardadorDeDados;
@@ -38,31 +40,37 @@ public class ServicoEmprestimo {
 		return listaLivro;
 	}
 
-	public void adicionaEmprestimo(int idUser, int idLivro, LocalDate dataEmprestimo) throws IOException {
-		Usuario usuario = listaCadastros().stream().filter(a -> a.getIdUser() == idUser).collect(Collectors.toList())
-				.get(0);
-		Livro livro = listaLivros().stream().filter(a -> a.getId() == idLivro).collect(Collectors.toList()).get(0);
-
+	public void adicionaEmprestimo(int idUser, int idLivro, LocalDate dataEmprestimo)
+			throws IOException, UsuarioJaCadastradoException {
 		System.out.println("Emprestimo solicitado... consultando...");
-		if (usuario.getQtdeLivrosEmprestados() < 5 && livro.getEstoque() > 0) {
-			System.out.println("Emprestimo realizado! Confira os dados:");
+		if (idUser <= listaCadastros().size() && idLivro <= listaLivros().size()) {
+			Usuario usuario = listaCadastros().stream().filter(a -> a.getIdUser() == idUser)
+					.collect(Collectors.toList()).get(0);
+			Livro livro = listaLivros().stream().filter(a -> a.getId() == idLivro).collect(Collectors.toList()).get(0);
 
-			usuario.setQtdeLivrosEmprestados(usuario.getQtdeLivrosEmprestados() + 1);
-			livro.setEstoque(livro.getEstoque() - 1);
+			if (usuario.getQtdeLivrosEmprestados() < 5 && livro.getEstoque() > 0) {
+				System.out.println("Emprestimo realizado! Confira os dados:");
 
-			LocalDate dataDevolucao = dataEmprestimo.plusDays(7);
-			Emprestimo emprestimo = new Emprestimo(usuario, livro, dataEmprestimo, dataDevolucao);
+				usuario.setQtdeLivrosEmprestados(usuario.getQtdeLivrosEmprestados() + 1);
+				livro.setEstoque(livro.getEstoque() - 1);
 
-			for (Emprestimo outroEmprestimo : empresta) {
-				int novoID = outroEmprestimo.getIdEmprestimo() + 1;
-				emprestimo.setIdEmprestimo(novoID);
+				LocalDate dataDevolucao = dataEmprestimo.plusDays(7);
+				Emprestimo emprestimo = new Emprestimo(usuario, livro, dataEmprestimo, dataDevolucao);
+
+				for (Emprestimo outroEmprestimo : empresta) {
+					int novoID = outroEmprestimo.getIdEmprestimo() + 1;
+					emprestimo.setIdEmprestimo(novoID);
+				}
+
+				empresta.add(emprestimo);
+				guardador.registraEmprestimo(empresta);
+				System.out.println(emprestimo);
+			} else {
+				throw new EmprestimoInvalidoException();
 			}
 
-			empresta.add(emprestimo);
-			guardador.registraEmprestimo(empresta);
-			System.out.println(emprestimo);
 		} else {
-			System.out.println("Não foi possível fazer o empréstimo!");
+			throw new UsuarioOuLviroInvalidoException();
 		}
 	}
 

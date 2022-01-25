@@ -72,12 +72,12 @@ public class Main {
 		biblioteca.adicionaUsuario(usuario15);
 
 		empresta.adicionaEmprestimo(2, 3, LocalDate.of(2022, 01, 01));
-		empresta.adicionaEmprestimo(2, 10, LocalDate.of(2021, 11, 18));
+		empresta.adicionaEmprestimo(2, 10, LocalDate.of(2021, 12, 18));
 		empresta.adicionaEmprestimo(11, 7, LocalDate.of(2021, 11, 11));
 		empresta.adicionaEmprestimo(3, 7, LocalDate.of(2021, 11, 11));
-		empresta.adicionaEmprestimo(3, 8, LocalDate.of(2021, 11, 11));
+		empresta.adicionaEmprestimo(3, 8, LocalDate.of(2021, 12, 11));
 		empresta.adicionaEmprestimo(11, 6, LocalDate.of(2022, 01, 11));
-		empresta.adicionaEmprestimo(2, 1, LocalDate.of(2022, 01, 19));
+		empresta.adicionaEmprestimo(2, 8, LocalDate.of(2022, 01, 19));
 		empresta.adicionaEmprestimo(2, 4, LocalDate.of(2022, 01, 19));
 		empresta.adicionaEmprestimo(10, 9, LocalDate.of(2022, 01, 19));
 		empresta.adicionaEmprestimo(10, 5, LocalDate.of(2022, 01, 19));
@@ -166,13 +166,13 @@ public class Main {
 						System.out.println("Insira o título: ");
 						insere.nextLine();
 						String tituloLivro = insere.nextLine();
-						biblioteca.buscaTitulo(tituloLivro);
+						System.out.println(biblioteca.buscaTitulo(tituloLivro));
 						break;
 					case 2:
 						System.out.println("Insira o nome do Autor: ");
 						insere.nextLine();
 						String nomeAutor = insere.nextLine();
-						biblioteca.buscaNomeAutor(nomeAutor);
+						System.out.println(biblioteca.buscaNomeAutor(nomeAutor));
 						break;
 					case 0:
 						System.out.println("Obrigado por utilizar a Biblioteca!");
@@ -241,7 +241,7 @@ public class Main {
 				do {
 					System.out.println("Escolha uma opção: ");
 					System.out.println(
-							"\n1. Ver livros emprestados \n2. Exibir Top 10 usuários que locam livros \n3. Exibir relatório de entrega de atraso de empréstimo \n0. Sair");
+							"\n1. Ver livros emprestados \n2. Exibir Top 10 usuários que locam livros \n3. Exibir relatório de usuários com empréstimos atrasados \n0. Sair");
 					tecla = insere.nextInt();
 
 					switch (tecla) {

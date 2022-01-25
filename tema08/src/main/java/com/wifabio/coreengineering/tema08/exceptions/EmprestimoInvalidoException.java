@@ -4,7 +4,7 @@ public class EmprestimoInvalidoException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	public EmprestimoInvalidoException() {
-		super("O empréstimo que você está tentando remover não existe!");
+		super("Não é possível fazer o empréstimo pois o usuário já está com mais de 5 livros emprestados ou o livro está sem estoque!!");
 	}
 
 }

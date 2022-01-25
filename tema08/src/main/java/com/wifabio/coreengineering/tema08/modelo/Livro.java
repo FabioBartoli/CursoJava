@@ -54,7 +54,7 @@ public class Livro {
 
 	@Override
 	public String toString() {
-		return "ID do livro: " + this.id + "\nTítulo: " + this.titulo + "\nAutor: " + this.autor
+		return "\nID do livro: " + this.id + "\nTítulo: " + this.titulo + "\nAutor: " + this.autor
 				+ "\nQuantidade em estoque: " + this.estoque + "\n-----------------";
 	}
 

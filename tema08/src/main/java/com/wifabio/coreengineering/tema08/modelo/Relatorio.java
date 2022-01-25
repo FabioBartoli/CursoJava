@@ -12,8 +12,7 @@ import com.wifabio.coreengineering.tema08.servicos.ServicoEmprestimo;
 
 public class Relatorio {
 
-	ServicoEmprestimo emprestimo = new ServicoEmprestimo();
-	Biblioteca cadastro = new Biblioteca();
+	private ServicoEmprestimo emprestimo = new ServicoEmprestimo();
 
 	public Relatorio(ServicoEmprestimo emprestimo) {
 		super();
